@@ -1,0 +1,41 @@
+# @format
+
+mutation DeleteProduct($deleteProductId: String!) {
+  deleteProduct(id: $deleteProductId)
+}
+
+mutation CreateProduct($input: CreateProductInput!) {
+  createProduct(input: $input) {
+    id
+    name
+    description
+    price
+    stock
+    imageUrl
+    ownerId
+  }
+}
+
+query MyProducts {
+  myProducts {
+    id
+    name
+    description
+    price
+    stock
+    imageUrl
+    ownerId
+  }
+}
+
+query Products {
+  products {
+    id
+    name
+    description
+    price
+    stock
+    imageUrl
+    ownerId
+  }
+}

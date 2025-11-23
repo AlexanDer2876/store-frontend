@@ -1,0 +1,38 @@
+mutation SignUpUser($input: SignUpUserInput!) {
+  signUpUser(input: $input) {
+    accessToken
+    user {
+      id
+      email
+      name
+    }
+  }
+}
+
+mutation SignInUser($input: SignInUserInput!) {
+  signInUser(input: $input) {
+    accessToken
+    user {
+      id
+      email
+      name
+    }
+  }
+}
+
+mutation SignUpCompany($input: SignUpCompanyInput!) {
+  signUpCompany(input: $input) {
+    accessToken
+    company {
+      id
+      name
+      email
+    }
+  }
+}
+
+mutation SignInCompany($input: SignInCompanyInput!) {
+  signInCompany(input: $input) {
+    accessToken
+  }
+}
