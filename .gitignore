@@ -1,0 +1,15 @@
+# Dependencias
+node_modules/
+
+# Builds de Next.js
+.next/
+
+# Env
+.env
+.env.local
+.env.*.local
+
+# Amplify (si llega a aparecer de nuevo)
+amplify/
+.amplify/
+aws-exports.js
