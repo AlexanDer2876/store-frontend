@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { AuthProvider } from "@/context/AuthContext";
 import ApolloWrapper from "@/components/apollo-provider";
+import { CartProvider } from "@/context/cart-context";
 
 export const metadata: Metadata = {
   title: "Store",
@@ -18,7 +19,10 @@ export default function RootLayout({
     <html lang="es" suppressHydrationWarning>
       <body>
         <ApolloWrapper>
-          <AuthProvider>{children}</AuthProvider>
+          <AuthProvider>
+            {" "}
+            <CartProvider>{children}</CartProvider>
+          </AuthProvider>
         </ApolloWrapper>
       </body>
     </html>

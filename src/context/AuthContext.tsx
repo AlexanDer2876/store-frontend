@@ -40,7 +40,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [accessToken, setAccessToken] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
 
-  // Leer del localStorage al cargar
   useEffect(() => {
     try {
       const storedToken =
@@ -59,7 +58,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         setUser(JSON.parse(storedUser));
       }
     } catch {
-      // por si algo truena con JSON
     } finally {
       setLoading(false);
     }
@@ -67,7 +65,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const login = (payload: LoginPayload) => {
     if (!payload) {
-      // login "vacío"
       setAccessToken(null);
       setUser(null);
       if (typeof window !== "undefined") {

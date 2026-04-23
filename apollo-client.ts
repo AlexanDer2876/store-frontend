@@ -1,49 +1,26 @@
 /** @format */
-import {
-  ApolloClient,
-  InMemoryCache,
-  createHttpLink,
-  from,
-} from "@apollo/client";
-import { setContext } from "@apollo/client/link/context";
-import { onError } from "@apollo/client/link/error";
-import possibleTypes from "@/graphql/generated/possibleTypes.json"; // si usaste introspection
-import { getCookie } from "cookies-next";
 
-// 🔗 Enlace principal al servidor GraphQL
+import { ApolloClient, InMemoryCache, createHttpLink } from "@apollo/client";
+import { setContext } from "@apollo/client/link/context";
+
 const httpLink = createHttpLink({
-  uri: process.env.NEXT_PUBLIC_API_URL + "/graphql", // ejemplo: http://localhost:4000/graphql
+  uri: process.env.NEXT_PUBLIC_GRAPHQL_URL,
 });
 
-// 🔐 Middleware para enviar token si existe
 const authLink = setContext((_, { headers }) => {
-  const token = getCookie("accessToken");
+  // Si guardás token en localStorage
+  const token =
+    typeof window !== "undefined" ? localStorage.getItem("accessToken") : null;
+
   return {
     headers: {
       ...headers,
-      ...(token ? { Authorization: `Bearer ${token}` } : {}),
+      Authorization: token ? `Bearer ${token}` : "",
     },
   };
 });
 
-// ⚠️ Manejo global de errores
-const errorLink = onError(({ graphQLErrors, networkError }) => {
-  if (graphQLErrors) {
-    graphQLErrors.forEach(({ message, extensions }) => {
-      console.error(`[GraphQL error]: Message: ${message}`, extensions);
-    });
-  }
-  if (networkError) {
-    console.error(`[Network error]: ${networkError}`);
-  }
+export const apolloClient = new ApolloClient({
+  link: authLink.concat(httpLink),
+  cache: new InMemoryCache(),
 });
-
-const client = new ApolloClient({
-  link: from([errorLink, authLink, httpLink]),
-  cache: new InMemoryCache({
-    possibleTypes, // ✅ usa esto si generaste introspection
-  }),
-  connectToDevTools: process.env.NODE_ENV === "development",
-});
-
-export default client;

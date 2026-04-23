@@ -1,6 +1,6 @@
 /** @format */
 
-import SignInForm from "@/components/auth/sign-in-form";
+import SignInForm from "@/components/auth/Signin/Signin";
 
 export default function SignInPage() {
   return <SignInForm />;

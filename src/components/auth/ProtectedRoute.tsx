@@ -19,7 +19,6 @@ export function ProtectedRoute({ children }: ProtectedRouteProps) {
   useEffect(() => {
     if (loading) return;
 
-    // si NO hay token → mandar a login con callbackUrl
     if (!accessToken) {
       const params = new URLSearchParams();
       if (pathname) {
@@ -29,7 +28,6 @@ export function ProtectedRoute({ children }: ProtectedRouteProps) {
     }
   }, [accessToken, loading, pathname, router]);
 
-  // Mientras carga contexto, mostramos algo
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -38,11 +36,9 @@ export function ProtectedRoute({ children }: ProtectedRouteProps) {
     );
   }
 
-  // Si no hay token (y ya redirigimos) no mostramos nada
   if (!accessToken) {
     return null;
   }
 
-  // Usuario logueado → mostramos el contenido protegido
   return <>{children}</>;
 }

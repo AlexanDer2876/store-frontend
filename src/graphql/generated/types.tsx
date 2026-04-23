@@ -57,7 +57,7 @@ export type CreateCategoryInput = {
 
 export type CreateProductInput = {
   description?: InputMaybe<Scalars["String"]["input"]>;
-  images?: Array<Scalars["String"]["input"]>;
+  imageUrl?: InputMaybe<Scalars["String"]["input"]>;
   name: Scalars["String"]["input"];
   price: Scalars["Float"]["input"];
   stock?: Scalars["Int"]["input"];
